@@ -2,17 +2,11 @@
 FROM node:22 AS build
 WORKDIR /app
 
-# Copiar archivos de dependencias
 COPY package*.json ./
+RUN npm install   # instala también devDependencies
 
-# Instalar dependencias
-RUN npm install
-
-# Copiar el resto del código
 COPY . .
-
-# Construir la aplicación
-RUN npm run build
+RUN npx ng build --configuration production
 
 # Etapa de despliegue
 FROM nginx
