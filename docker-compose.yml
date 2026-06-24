@@ -32,8 +32,8 @@ networks:
 
 erp-frontend:
 build:
-context: ./erp-frontend
-container_name: erp-frontend
+context: ./Front-Product
+container_name: front-product
 restart: always
 depends_on:
 - erp-product
