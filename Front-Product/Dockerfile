@@ -3,10 +3,14 @@ FROM node:22 AS build
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install   # instala también devDependencies
+RUN npm install
 
 COPY . .
-RUN npx ng build --configuration production
+
+# Asegurar que ng esté en el PATH
+ENV PATH="./node_modules/.bin:$PATH"
+
+RUN npm run build --configuration production
 
 # Etapa de despliegue
 FROM nginx
