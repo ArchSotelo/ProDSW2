@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+
+mysql:
+image: mysql:8.0
+container_name: mysql
+restart: always
+environment:
+MYSQL_ROOT_PASSWORD: mysql
+MYSQL_DATABASE: db_products
+ports:
+- "3307:3306"
+volumes:
+- mysql_data:/var/lib/mysql
+networks:
+- red-app
+
+erp-product:
+build:
+context: ./ERP_Product
+container_name: erp-product
+restart: always
+depends_on:
+- mysql
+ports:
+- "8081:8080"
+env_file:
+- .env
+networks:
+- red-app
+
+erp-frontend:
+build:
+context: ./erp-frontend
+container_name: erp-frontend
+restart: always
+depends_on:
+- erp-product
+ports:
+- "4200:80"
+networks:
+- red-app
+
+networks:
+red-app:
+driver: bridge
+
+volumes:
+mysql_data:
