@@ -31,7 +31,7 @@ services:
 
   erp-frontend:
     build:
-      context: ./Front-Product
+      context: ./Front-Product/erp-frontend
     container_name: front-product
     restart: always
     depends_on:

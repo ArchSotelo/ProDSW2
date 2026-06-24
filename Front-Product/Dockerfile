@@ -6,10 +6,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-
-# Asegurar PATH y permisos
 ENV PATH="./node_modules/.bin:$PATH"
-RUN chmod +x ./node_modules/.bin/ng
 
 RUN npm run build --configuration production
 
